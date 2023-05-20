@@ -86,7 +86,7 @@ MPC provides the ability to create a secure key management system without relyin
 
 In this project, we will use the Shamir Secret Sharing (SSS) as MPC implementation, consumer-focused wallets and institutional services can develop more secure on-chain asset management systems. These systems help mitigate the risks associated with private key theft and loss.
 
-Shamir Secret Sharing (SSS) is an incredibly popular implementation of a secret sharing scheme developed by Adi Shamir, a renowned Israeli cryptographer who also played a significant role in the creation of the RSA algorithm. SSS enables the division of a secret into an arbitrary number of shares, with a customizable threshold (as long as it is lower than the total number of participants). The underlying principle of SSS is based on polynomial interpolation, which states that a polynomial of degree t-1 can be reconstructed if the knowledge of t or more points lying on the curve is available.
+Shamir Secret Sharing (SSS) is an incredibly popular implementation of a secret sharing scheme developed by Adi Shamir, a renowned Israeli cryptographer who also played a significant role in the creation of the AES algorithm. SSS enables the division of a secret into an arbitrary number of shares, with a customizable threshold (as long as it is lower than the total number of participants). The underlying principle of SSS is based on polynomial interpolation, which states that a polynomial of degree t-1 can be reconstructed if the knowledge of t or more points lying on the curve is available.
 
 To illustrate, consider the reconstruction of a degree 1 curve (a straight line). At least 2 points lying on the line are required for successful reconstruction. Conversely, it is mathematically impossible to reconstruct a curve when the number of unique points available is less than the degree of the curve plus 1. This can be visualized by imagining the infinite number of possible straight lines that can be formed from just one point in a two-dimensional space.
 
@@ -104,7 +104,7 @@ The glossary and background of our project are:
 1. The signature algorithm in this project chooses secp256k1(ECDSA).
 1. The $WalletOwner$ will create a key-pair of secp256k1, which can be used to sign the transaction, and the asset will be stored in the corresponded address(`address := "0x" + SHA3(pubKey).split(0:40)`).
 1. $Device_A$ owns the $Share_A$ of the key. We assume $Share_A$ is just stored by writing on a Paper. The $Share_A$ will be directly record without any encryption.
-1. $Device_B$ owns the $Share_B$ of the key. We assume $Share_B$ is stored in the Computer of $WalletOwner$. The $Share_B$ will be encrypted by a $password$ set by user in RSA.
+1. $Device_B$ owns the $Share_B$ of the key. We assume $Share_B$ is stored in the Computer of $WalletOwner$. The $Share_B$ will be encrypted by a $password$ set by user in AES.
 1. $TrustedThirdParty$ owns the $KEK$ of the $Share_C$ of the key. We assume $TrustedThirdParty$ is the wallet software supplier which is choosen and trusted by the $WalletOwner$.
 2. $KEK$ means users can use their iCloud/Google Drive as a recovery method. The process works as follows: $TrustedThirdParty$ generates a random number called the key-encryption-key (KEK) and uses it to encrypt the secret. The encrypted secret is then stored in the cloud storage, while the $KEK$ is sent to the database of $TrustedThirdParty$ for safekeeping.
 
@@ -233,11 +233,11 @@ print('\t- Please enter your password, which is used to encrypt your share B:')
 password = input()
 encrypted_share_b = Account.encrypt(shareB.value, password)
 pointB = shareB.point
-print("\t- Encrypted with the Password by RSA:")
+print("\t- Encrypted with the Password by AES:")
 printDict(encrypted_share_b)
 
 print("\nShare C (Kept by wallet software supplier): ", shareC)
-print("\t- Encrypted with the KEK by RSA")
+print("\t- Encrypted with the KEK by AES")
 kek = random.randint(0,17898947891374192)
 encrypted_share_c = Account.encrypt(shareC.value, kek)
 pointC = shareC.point
@@ -248,7 +248,7 @@ Share A (Stored by writing on the Paper):  AQCNPOD+s+PW677h7Nr1uPol0CtcjtNAfFRqs
 
 Share B (Stored in the Computer):  AgAXdcInXTAADP6+5YyiLlX4Z8VFfA8lnUqIZV5mGMbx9g==
 	- Please enter your password, which is used to encrypt your share B: 1234
-	- Encrypted with the Password by RSA:
+	- Encrypted with the Password by AES:
 {
     "address": "a2a152b998200b5dba78b8f2aa80f2f321a6d753",
     "crypto": {
@@ -272,7 +272,7 @@ Share B (Stored in the Computer):  AgAXdcInXTAADP6+5YyiLlX4Z8VFfA8lnUqIZV5mGMbx9
 }
 
 Share C (Kept by wallet software supplier):  AwChrqNQBnwpLj6b3j5Oo7HK/18uaUsKvkCmGJLKfWHy4g==
-	- Encrypted with the KEK by RSA
+	- Encrypted with the KEK by AES
 	- The KEK= 3030923849674283 will be stored in the Wallet Supplier Server
 ```
 
