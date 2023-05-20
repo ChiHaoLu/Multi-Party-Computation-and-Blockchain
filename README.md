@@ -99,10 +99,10 @@ By employing Shamir Secret Sharing, sensitive information, which will be the pri
 
 The glossary and background of our project are:
 1. The signature algorithm in this project chooses secp256k1(ECDSA).
-1. The WalletOwner will create a key-pair of secp256k1, which can be used to sign the transaction, and the asset will be stored in the corresponded address(`address := "0x" + SHA3(pubKey).split(0:40)`).
+1. The $WalletOwner$ will create a key-pair of secp256k1, which can be used to sign the transaction, and the asset will be stored in the corresponded address(`address := "0x" + SHA3(pubKey).split(0:40)`).
 1. $Device_A$ owns the $Share_A$ of the key. We assume $Share_A$ is just stored by writing on a Paper. The $Share_A$ will be directly record without any encryption.
-1. $Device_B$ owns the $Share_B$ of the key. We assume $Share_B$ is stored in the Computer of WalletOwner. The $Share_B$ will be encrypted by a $password$ set by user in RSA.
-1. $TrustedThirdParty$ owns the $KEK$ of the $Share_C$ of the key. We assume $TrustedThirdParty$ is the wallet software supplier which is choosen and trusted by the WalletOwner.
+1. $Device_B$ owns the $Share_B$ of the key. We assume $Share_B$ is stored in the Computer of $WalletOwner$. The $Share_B$ will be encrypted by a $password$ set by user in RSA.
+1. $TrustedThirdParty$ owns the $KEK$ of the $Share_C$ of the key. We assume $TrustedThirdParty$ is the wallet software supplier which is choosen and trusted by the $WalletOwner$.
 2. $KEK$ means users can use their iCloud/Google Drive as a recovery method. The process works as follows: $TrustedThirdParty$ generates a random number called the key-encryption-key (KEK) and uses it to encrypt the secret. The encrypted secret is then stored in the cloud storage, while the $KEK$ is sent to the database of $TrustedThirdParty$ for safekeeping.
 
 
@@ -110,24 +110,24 @@ The glossary and background of our project are:
 
 Our goals to acheive this project are:
 
-Scenarios 1: If WalletOwner want to send a signed message or signed transaction.
-1. He/She need to choose two out of the following three options: $Share_A$, $Share_B$ and $Share_C$.
+Scenarios 1: If $WalletOwner$ want to send a signed message or signed transaction.
+1. He/She need to choose two out of the following three options: $Share_A$, $Share_B$ and $Share_C$. In our assumption, user will use the $Share_A$ and $Share_B$ to sign transaction.
 1. Calculating the signature by the choosen shares.
 1. Verifying the signature is valid.
 
-
-Scenarios 2: When WalletOwner lost one of shares, $Share_A$ or $Share_B$:
-1. He/She can request the $Share_C$ which belongs to $TrustedThirdParty$.
-1. Then he/she can use the not-lost one and $Share_C$ to access the Asset.
+Scenarios 2: When $WalletOwner$ lost one of shares, $Share_A$ or $Share_B$:
+1. He/She can request the $KEK$ of the $Share_C$ which belongs to $TrustedThirdParty$.
+1. He/She can decrypt the encrypted $Share_C$ stored in their Cloud with $KEK$.
+1. Then he/she can use the not-lost one share and $Share_C$ to access the Asset.
 1. Finally, he/she can create a new wallet and transfer the asset to this new wallet.
 
 ### 3.3 Trust Assumption
-1. $TrustedThirdParty$ can not access the WalletOwner, because it only stores the $KEK$ of $Share_C$, and the calcultion is done by WalletOwner (in his/her local device).
+1. $TrustedThirdParty$ can not access the $WalletOwner$, because it only stores the $KEK$ of $Share_C$, and the calcultion is done by $WalletOwner$ (in his/her local device).
 1. Without the KEK provided by $TrustedThirdParty$, individuals with access to the cloud storage cannot decrypt your secret. 
 1. When anyone requests the $KEK$ from $TrustedThirdParty$, they need to pass two-factor authentication (such as SMS or email verification) in order to receive the $KEK$. 
 1. From another perspective, $TrustedThirdParty$ (or anyone who hacks into $TrustedThirdParty$'s database) cannot obtain your secret because they do not have the authorization to access your cloud storage.
 
-### 3.4 Algorithm 
+### 3.4 SSS Algorithm 
 
 The polynomial P(x) represents coefficients in the form of a₁ * x^p + a₂ * x^(p-1) + … + aₙ * x^(p-p). Constructing a polynomial involves selecting these coefficients as placeholders to store their values.
 
@@ -143,7 +143,7 @@ In the Secret Reconstruction phase, a minimum of t shares is pooled to reconstru
 
 Shamir's Secret Sharing provides a secure method to distribute secrets among multiple participants, ensuring that the secret remains hidden unless a sufficient number of shares are combined. It finds applications in various fields where secure sharing and reconstruction of sensitive information are vital.
 
-### 3.3 Demo Program
+### 3.5 Demo Program
 
 We will use the python to implement the demo program, and import the library `secretshare` to achive the SSS and `eth_account` for secp256k1 signing which is used in Ethereum Protocol.
 
@@ -372,14 +372,14 @@ The table below provides definitions for the terms used:
 | **Level** | Contract Level | Contract Level | **Key Level** |
 | **Cost(Gas Fee)** | High | Highest | **Lowest** |
 | **If Key Lost**| Can Recover | Can Recover | **Can Recover** |
-| **If Key Stolen** | Asset will be transferd |   Asset is safe | **Asset is safe** |
+| **If One Key Stolen** | Asset will be transferd |  Asset is safe | **Asset is safe** |
 | **User Experience**| Low|Low|**High** |
 
 
 The table compares three solutions: Social Recovery Contract Wallet, MultiSig Contract Wallet, and MPC Wallet.
 * The Social Recovery Contract Wallet operates at the contract level. It allows for key recovery if lost, but it incurs a high gas fee.
-* The MultiSig Contract Wallet also operates at the contract level. It enables key recovery if lost and ensures asset safety if the key is stolen. However, it incurs the highest gas fee.
-* The MPC Wallet operates at the key level. It has the lowest gas fee, allows for key recovery if lost, and ensures asset safety if the key is stolen. Moreover, it provides a high user experience with seamless operation similar to a native account (EOA) on the blockchain.
+* The MultiSig Contract Wallet also operates at the contract level. It enables key recovery if lost and ensures asset safety if one signing key is stolen. However, it incurs the highest gas fee.
+* The MPC Wallet operates at the key level. It has the lowest gas fee, allows for key recovery if lost, and ensures asset safety if one share is stolen. Moreover, it provides a high user experience with seamless operation similar to a native account (EOA) on the blockchain.
 
 ### 4.2 Summary
 
