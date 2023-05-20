@@ -224,7 +224,7 @@ shareB = shares[1]
 shareC = shares[2]
 ```
 
-We store the $Share_A$ just by writing on a Paper without any encryption. And we use a $password$ to encrypt $Share_B$ to store it in the computer. Then we collaborate with the $TrustedThirdParty$ by storing the $Share_C$ with KEK.
+We store the $Share_A$ just by writing on a Paper without any encryption. And we use a $password$ to encrypt $Share_B$ to store it in the computer. Then we collaborate with the $TrustedThirdParty$ by storing the $Share_C$ with $KEK$.
 ```python
 print("\nShare A (Stored by writing on the Paper): ", shareA)
 
@@ -276,7 +276,7 @@ Share C (Kept by wallet software supplier):  AwChrqNQBnwpLj6b3j5Oo7HK/18uaUsKvkC
 	- The KEK= 3030923849674283 will be stored in the Wallet Supplier Server
 ```
 
-In our first scenarios, the user will hold the Share A and Share B, which can sign the transaction and control the asset belongs to the origianal key pair.
+In our first scenarios, the user will hold the $Share_A$ and $Share_B$, which can sign the transaction and control the asset belongs to the origianal key pair.
 
 ```python
 print("\nUser sign the transaction with Share A & Share B")
@@ -306,7 +306,7 @@ Signature:
     - r: 115534...916390
     - s: 226513...619208
 ```
-In our second scenarios, the Share C will be kept by the wallet software supplier or any trusted third party. If the users lost/forget one of the share A or share B, they can request the Share C with any mechanism (e.g. Biometric authentication, 2FA, 3FA...).
+In our second scenarios, the $KEK$ of the $Share_C$ will be kept by the wallet software supplier or any trusted third party. If the users lost/forget one of the $Share_A$ or $Share_B$, they can request the $KEK$ with any mechanism (e.g. Biometric authentication, 2FA, 3FA...) and use it to decrypt the $Share_C$ in cloud.
 
 Then, he/she can recover his/her account by re-control the asset with signing transaction with 2 Share.
 ```python
@@ -363,7 +363,6 @@ new_shareC = new_shares[2]
 
 ### 4.1 Comparison
 
-
 The table below provides definitions for the terms used:
 
 1. "Lost": It refers to the scenario where the account owner forgets the private key.
@@ -390,7 +389,7 @@ In our implementation and comparison, the MPC Wallet offers the lowest cost beca
 
 Furthermore, the MPC Wallet provides the highest User Experience (UX) due to its streamlined operation. Unlike other contract wallets that may have additional features implemented in their smart contracts, which necessitate users' understanding and consensus from other signers to execute certain actions correctly, the MPC Wallet operates akin to a native account (EOA) on the blockchain. By addressing the private key issue at the key level and performing operations through the wallet provider's interface, the MPC Wallet delivers a seamless user experience without added complexity.
 
-Besides, the MPC Wallet does not require additional trust assumptions. In contrast, both the MultiSig Contract Wallet and the Social Recovery Contract Wallet carry the risk of collusion among other signers or guardians, which could result in the theft of your account assets. However, by entrusting Share C to a centralized entity (the wallet provider's server), the level of decentralization is slightly reduced. Nevertheless, this aspect poses no risk to the assets themselves, but rather introduces regulatory oversight risks.
+Besides, the MPC Wallet does not require additional trust assumptions. In contrast, both the MultiSig Contract Wallet and the Social Recovery Contract Wallet carry the risk of collusion among other signers or guardians, which could result in the theft of your account assets. However, by entrusting the $KEK$ of $Share_C$ to a centralized entity (the wallet provider's server), the level of decentralization is slightly reduced. Nevertheless, this aspect poses no risk to the assets themselves, but rather introduces regulatory oversight risks.
 
 ---
 
