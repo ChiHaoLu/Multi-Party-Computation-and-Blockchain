@@ -1,12 +1,15 @@
 # C2-report-2023
-> **Title:** Multi-Party Computation and Blockchain
-> **Team Code:** C2
-> **Presentation date:** 06/01/2023
-> **Teammate:** [B08303113 ECON Senior 陸紀豪](https://chihaolu.me) & B08303116 ECON Senior 游景恩
-> **Project Type:** Implementation
-> - [Repository](https://github.com/ChiHaoLu/Multi-Party-Computation-and-Blockchain)
-> - [Live Demo](https://colab.research.google.com/drive/19cTcPrbXMXNiOM10nfsrL5IxJZX-WLXV?usp=sharing)
-> - [Slides]()
+> - **Title:** Multi-Party Computation and Blockchain
+> - **Team Code:** C2
+> - **Project Type:** Implementation
+> - **Presentation date:** 06/01/2023
+> - **Teammate:** 
+>   - [B08303113 ECON Senior 陸紀豪](https://chihaolu.me)
+>   - B08303116 ECON Senior 游景恩
+> - **Link Tree**
+>   - [Repository](https://github.com/ChiHaoLu/Multi-Party-Computation-and-Blockchain)
+>   - [Live Demo](https://colab.research.google.com/drive/19cTcPrbXMXNiOM10nfsrL5IxJZX-WLXV?usp=sharing)
+>   - [Slides]()
 
 ### Timeline & Requirements
 1. ✅ Proposal to cllei@ntu.edu.tw by 04/13
