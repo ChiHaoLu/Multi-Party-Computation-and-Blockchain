@@ -125,8 +125,8 @@ Scenarios 2: When $WalletOwner$ lost one of shares, $Share_A$ or $Share_B$:
 1. Finally, he/she can create a new wallet and transfer the asset to this new wallet.
 
 ### 3.3 Trust Assumption
-1. $TrustedThirdParty$ can not access the $WalletOwner$, because it only stores the $KEK$ of $Share_C$, and the calcultion is done by $WalletOwner$ (in his/her local device).
-1. Without the KEK provided by $TrustedThirdParty$, individuals with access to the cloud storage cannot decrypt your secret. 
+1. $TrustedThirdParty$ can not access the $WalletOwner$, because it only stores the $KEK$ of $Share_C$, and the calculation is done by $WalletOwner$ (in his/her local device).
+1. Without the $KEK$ provided by $TrustedThirdParty$, individuals with access to the cloud storage cannot decrypt your secret. 
 1. When anyone requests the $KEK$ from $TrustedThirdParty$, they need to pass two-factor authentication (such as SMS or email verification) in order to receive the $KEK$. 
 1. From another perspective, $TrustedThirdParty$ (or anyone who hacks into $TrustedThirdParty$'s database) cannot obtain your secret because they do not have the authorization to access your cloud storage.
 
