@@ -113,12 +113,12 @@ The glossary and background of our project are:
 
 Our goals to acheive this project are:
 
-Scenarios 1: If $WalletOwner$ want to send a signed message or signed transaction.
+Scenario 1: If $WalletOwner$ want to send a signed message or signed transaction.
 1. He/She need to choose two out of the following three options: $Share_A$, $Share_B$ and $Share_C$. In our assumption, user will use the $Share_A$ and $Share_B$ to sign transaction.
 1. Calculating the signature by the choosen shares.
 1. Verifying the signature is valid.
 
-Scenarios 2: When $WalletOwner$ lost one of shares, $Share_A$ or $Share_B$:
+Scenario 2: When $WalletOwner$ lost one of shares, $Share_A$ or $Share_B$:
 1. He/She can request the $KEK$ of the $Share_C$ which belongs to $TrustedThirdParty$.
 1. He/She can decrypt the encrypted $Share_C$ stored in their Cloud with $KEK$.
 1. Then he/she can use the not-lost one share and $Share_C$ to access the Asset.
@@ -276,7 +276,7 @@ Share C (Kept by wallet software supplier):  AwChrqNQBnwpLj6b3j5Oo7HK/18uaUsKvkC
 	- The KEK= 3030923849674283 will be stored in the Wallet Supplier Server
 ```
 
-In our first scenarios, the user will hold the $Share_A$ and $Share_B$, which can sign the transaction and control the asset belongs to the origianal key pair.
+In our first scenario, the user will hold the $Share_A$ and $Share_B$, which can sign the transaction and control the asset belongs to the original key pair.
 
 ```python
 print("\nUser sign the transaction with Share A & Share B")
@@ -306,7 +306,7 @@ Signature:
     - r: 115534...916390
     - s: 226513...619208
 ```
-In our second scenarios, the $KEK$ of the $Share_C$ will be kept by the wallet software supplier or any trusted third party. If the users lost/forget one of the $Share_A$ or $Share_B$, they can request the $KEK$ with any mechanism (e.g. Biometric authentication, 2FA, 3FA...) and use it to decrypt the $Share_C$ in cloud.
+In our second scenario, the $KEK$ of the $Share_C$ will be kept by the wallet software supplier or any trusted third party. If the users lost/forget one of the $Share_A$ or $Share_B$, they can request the $KEK$ with any mechanism (e.g. Biometric authentication, 2FA, 3FA...) and use it to decrypt the $Share_C$ in cloud.
 
 Then, he/she can recover his/her account by re-control the asset with signing transaction with 2 Share.
 ```python
@@ -347,7 +347,7 @@ Signature:
     - s: 226513...619208
 ```
 
-To re-achive the account safty, the user can produce new shares by split the private key(`secretBC`).
+To re-acheive the account safety, the user can produce new shares by split the private key(`secretBC`).
 
 ```python
 new_shamir = SecretShare(threshold, share_count, secret=secretBC)
